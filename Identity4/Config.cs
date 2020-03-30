@@ -9,23 +9,14 @@ namespace Identity4
         {
             return new[]
             {
-                //new Client
-                //{
-                //    ClientId = "mvc",
-                //    ClientName = "MVC Demo",
-                //    AllowedGrantTypes = GrantTypes.Implicit,
-                //    RedirectUris = {"https://localhost:5011/signin-oidc" },
 
-                //    //list of allowed information to share
-                //    AllowedScopes = {"openid","profile","email","address"}  
-                //},
                 new Client
                 {
                     ClientId = "mvc",
                     ClientSecrets = { new Secret("secret".Sha256()) },
 
                     AllowedGrantTypes = GrantTypes.Code,
-                    RequireConsent = true,
+                    RequireConsent = false,
                     RequirePkce = true,
 
                     // where to redirect to after login

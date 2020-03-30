@@ -62,9 +62,10 @@ namespace MvcApp.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
             var response = await client.GetAsync("https://localhost:5001/api/WeatherForecast");
+            var result = await response.Content.ReadAsStringAsync();
             var model = new ApiResponseModel
             {
-                Response = JArray.Parse(response.ReasonPhrase)
+                Response = JArray.Parse(result)
             };
             return View(model);
         }
