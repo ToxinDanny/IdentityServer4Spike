@@ -54,7 +54,7 @@ namespace Identity4
             app.UseStaticFiles();
             app.UseIdentityServer();
             app.UseRouting();
-            //app.UseAuthorization();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
