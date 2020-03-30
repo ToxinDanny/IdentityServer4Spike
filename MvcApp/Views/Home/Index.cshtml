@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Authentication
+
+@if (User.Identity.IsAuthenticated)
+{
+    @Html.ActionLink("CallApi", "CallApi", "Home")
+};
+
+<h2>Claims</h2>
+
+<dl>
+    @foreach (var claim in User.Claims)
+    {
+        <dt>@claim.Type</dt>
+        <dd>@claim.Value</dd>
+    }
+</dl>
+
+<h2>Properties</h2>
+@{
+    IDictionary<string,string> items = new Dictionary<string, string>();
+    var myAuth = (await Context.AuthenticateAsync());
+//    var myAuth = (await Context.AuthenticateAsync()).Properties.Items;
+
+    if (myAuth != null)
+    {
+        items = myAuth.Properties?.Items;
+    }
+}
+
+<dl>
+
+    @if (items != null)
+    {
+        @foreach (var prop in items)
+        {
+            <dt>@prop.Key</dt>
+            <dd>@prop.Value</dd>
+        }
+    }
+
+</dl>
