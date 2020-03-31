@@ -32,6 +32,8 @@ namespace WebAPI
                     opt.Authority = "https://localhost:5000";
                     opt.RequireHttpsMetadata = false;
                     opt.Audience = "myApi";
+                    //opt.TokenValidationParameters.ValidateLifetime = true;
+                    opt.TokenValidationParameters.RequireExpirationTime = true;
                 });
 
         }

@@ -27,7 +27,9 @@ namespace Identity4
 
                     PostLogoutRedirectUris = { "https://localhost:5011/signout-callback-oidc" },
 
-                    AllowedScopes = {"openid","profile","email","address", "myApi" }
+                    AllowedScopes = {"openid","profile","email","address", "myApi" },
+
+                    AccessTokenLifetime = 10
                 }
 
             };
