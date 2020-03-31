@@ -62,6 +62,12 @@ namespace MvcApp.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
             var response = await client.GetAsync("https://localhost:5001/api/WeatherForecast");
+
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                return Unauthorized();
+            }
+
             var result = await response.Content.ReadAsStringAsync();
             var model = new ApiResponseModel
             {

@@ -16,7 +16,7 @@ namespace Identity4
                     ClientSecrets = { new Secret("secret".Sha256()) },
 
                     AllowedGrantTypes = GrantTypes.Code,
-                    RequireConsent = false,
+                    RequireConsent = true,
                     RequirePkce = true,
 
                     // where to redirect to after login
@@ -27,7 +27,7 @@ namespace Identity4
 
                     PostLogoutRedirectUris = { "https://localhost:5011/signout-callback-oidc" },
 
-                    AllowedScopes = {"openid","profile","email","address","myApi"}
+                    AllowedScopes = {"openid","profile","email","address", "myApi" }
                 }
 
             };
@@ -44,6 +44,7 @@ namespace Identity4
                 new IdentityResource()
                 {
                     Name = "address",
+                    DisplayName = "Address",
                     UserClaims = {"user_address"}
                 },
             };

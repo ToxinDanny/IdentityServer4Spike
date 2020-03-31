@@ -41,16 +41,19 @@ namespace MvcApp
                     //opt.AuthenticationSchema 
                      opt.Authority = "https://localhost:5000";
                      opt.RequireHttpsMetadata = false;
+                     
                      opt.ClientId = "mvc";
                      opt.ClientSecret = "secret";
                      opt.ResponseType = "code";
-                     opt.SignInScheme = "Cookies";
+                     
+                     opt.SaveTokens = true;
+                     
                      opt.Scope.Add("openid");
                      opt.Scope.Add("email");
                      opt.Scope.Add("address");
                      opt.Scope.Add("profile");
                      opt.Scope.Add("myApi");
-                     opt.SaveTokens = true;
+
                  });
         }
 
