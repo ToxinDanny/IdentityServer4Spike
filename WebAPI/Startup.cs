@@ -29,11 +29,15 @@ namespace WebAPI
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", opt =>
                 {
+                    
                     opt.Authority = "https://localhost:5000";
                     opt.RequireHttpsMetadata = false;
                     opt.Audience = "myApi";
-                    //opt.TokenValidationParameters.ValidateLifetime = true;
-                    opt.TokenValidationParameters.RequireExpirationTime = true;
+                    
+                    opt.TokenValidationParameters.ValidateIssuer = true;
+                    opt.TokenValidationParameters.ValidateAudience = true;
+                    opt.TokenValidationParameters.ValidateIssuerSigningKey = true;
+                    opt.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
                 });
 
         }
