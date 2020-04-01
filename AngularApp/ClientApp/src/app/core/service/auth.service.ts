@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {User, UserManager} from 'oidc-client';
 import {Subject} from 'rxjs';
+import {authUri, clientUri} from '../../const/uri';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +11,17 @@ export class AuthService {
   userManager: UserManager;
   loginChangedSubject = new Subject<boolean>();
 
+  loginChanged = this.loginChangedSubject.asObservable();
+
   constructor() {
     const stsSetting = {
       authority: authUri,
       client_id: 'angular',
       client_secret: 'secret',
-      redirect_uri: clientUri + '/signin-callback',
+      redirect_uri: `${clientUri}/signin-callback`,
       scope: 'openid email address profile myApi',
-      response: 'code',
-      post_logout_redirect_uri: clientUri + '/Home'
+      response_type: 'code',
+      post_logout_redirect_uri: `${clientUri}/signout-callback`
     };
     this.userManager = new UserManager(stsSetting);
   }

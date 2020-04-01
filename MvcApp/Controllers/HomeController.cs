@@ -60,7 +60,6 @@ namespace MvcApp.Controllers
         public async Task<IActionResult> CallApi()
         {
             var client = new HttpClient();
-            await RefreshTokenAsync(client);
             var accessToken = await HttpContext.GetTokenAsync("access_token");
            
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
@@ -80,31 +79,31 @@ namespace MvcApp.Controllers
             return View(model);
         }
 
-        private async Task RefreshTokenAsync(HttpClient Client)
-        {            
-            var discoveryDocument = await Client.GetDiscoveryDocumentAsync("https://localhost:5000/");
+        //private async Task RefreshTokenAsync(HttpClient Client)
+        //{            
+        //    var discoveryDocument = await Client.GetDiscoveryDocumentAsync("https://localhost:5000/");
 
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
-            var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
-            var identityToken = await HttpContext.GetTokenAsync("id_token");
+        //    var accessToken = await HttpContext.GetTokenAsync("access_token");
+        //    var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
+        //    var identityToken = await HttpContext.GetTokenAsync("id_token");
 
-            var tokenResponse = await Client.RequestRefreshTokenAsync(
-                new RefreshTokenRequest
-                {
-                    Address = discoveryDocument.TokenEndpoint,
-                    RefreshToken = refreshToken,
-                    ClientId = "mvc",
-                    ClientSecret = "secret",
-                });
+        //    var tokenResponse = await Client.RequestRefreshTokenAsync(
+        //        new RefreshTokenRequest
+        //        {
+        //            Address = discoveryDocument.TokenEndpoint,
+        //            RefreshToken = refreshToken,
+        //            ClientId = "mvc",
+        //            ClientSecret = "secret",
+        //        });
 
-            var authInfo = await HttpContext.AuthenticateAsync("Cookies");
+        //    var authInfo = await HttpContext.AuthenticateAsync("Cookies");
 
-            authInfo.Properties.UpdateTokenValue("access_token", tokenResponse.AccessToken);
-            authInfo.Properties.UpdateTokenValue("id_token", tokenResponse.IdentityToken);
-            authInfo.Properties.UpdateTokenValue("refresh_token", tokenResponse.RefreshToken);
+        //    authInfo.Properties.UpdateTokenValue("access_token", tokenResponse.AccessToken);
+        //    authInfo.Properties.UpdateTokenValue("id_token", tokenResponse.IdentityToken);
+        //    authInfo.Properties.UpdateTokenValue("refresh_token", tokenResponse.RefreshToken);
 
-            await HttpContext.SignInAsync("Cookies", authInfo.Principal, authInfo.Properties);
+        //    await HttpContext.SignInAsync("Cookies", authInfo.Principal, authInfo.Properties);
 
-        }
+        //}
     }
 }

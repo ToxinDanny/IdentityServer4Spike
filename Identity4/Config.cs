@@ -27,13 +27,31 @@ namespace Identity4
 
                     PostLogoutRedirectUris = { "https://localhost:5011/signout-callback-oidc" },
 
-                    AllowedScopes = {"openid","profile","email","address", "myApi", "offline_access" },
+                    AllowedScopes = {"openid","profile","email","address", "myApi"},
 
-                    AllowOfflineAccess = true,
-
-                    AccessTokenLifetime = 10
+                    AccessTokenLifetime = 60
 
                     
+                },
+
+                new Client
+                {
+                    ClientId = "angular",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequireConsent = true,
+                    RequirePkce = true,
+
+                    // where to redirect to after login
+                    RedirectUris = { "https://localhost:4200/signin-oidc" },
+                    
+                    // where to redirect to after logout
+                    
+                    PostLogoutRedirectUris = { "https://localhost:4200/signout-callback-oidc" },
+
+                    AllowedScopes = {"openid","profile","email","address", "myApi"},
+
                 }
 
             };

@@ -53,7 +53,6 @@ namespace MvcApp
                      opt.Scope.Add("address");
                      opt.Scope.Add("profile");
                      opt.Scope.Add("myApi");
-                     opt.Scope.Add("offline_access");
 
                  });
         }
