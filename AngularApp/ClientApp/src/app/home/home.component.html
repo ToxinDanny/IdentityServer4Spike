@@ -1,0 +1,15 @@
+<div class="container">
+  <h1>Welcome in your Angular Client</h1>
+  <div>
+    <button style="margin-left: 3px" class="btn btn-primary" (click)="Login()">
+      Login
+    </button>
+    <button style="margin-left: 3px" [disabled]="able" class="btn btn-danger" (click)="Logout()">
+      Logout
+    </button>
+    <button style="margin-left: 3px" *ngIf="visible" class="btn btn-dark" (click)="CallApi()">
+      CallApi
+    </button>
+  </div>
+</div>
+
