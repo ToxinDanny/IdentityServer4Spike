@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AuthService} from '../../core/service/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +9,11 @@ export class HomeComponent {
   visible: boolean;
   able = true;
 
+  constructor(private authService: AuthService) {
+  }
+
   Login() {
-    alert('Benvenuto coglione');
+    this.authService.login().then();
     this.visible = true;
     this.able = !this.able;
   }
