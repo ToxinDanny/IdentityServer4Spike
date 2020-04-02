@@ -41,4 +41,11 @@ export class AuthService {
     });
   }
 
+  completeLogin() {
+    return this.userManager.signinRedirectCallback().then(user => {
+      this.user = user;
+      this.loginChangedSubject.next(!!user && !user.expired);
+      return user;
+    })
+  }
 }

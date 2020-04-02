@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {AuthService} from '../../core/service/auth.service';
+import { User } from 'oidc-client';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ export class HomeComponent {
   visible: boolean;
   able = true;
 
-  constructor(private authService: AuthService) {
+  constructor(public authService: AuthService) {
   }
 
   Login() {

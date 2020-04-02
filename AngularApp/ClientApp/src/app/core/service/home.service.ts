@@ -8,6 +8,7 @@ import {apiUri} from '../../const/uri';
 export class HomeService {
 
   constructor(private client: HttpClient) { }
+
   CallApi() {
     this.client.get(apiUri + 'Get');
   }

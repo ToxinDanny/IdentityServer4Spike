@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './feature/home/home.component';
+import { SigninCallbackComponent } from './feature/signin-callback/signin-callback.component';
 
 
 @NgModule({
@@ -17,8 +18,9 @@ import { HomeComponent } from './feature/home/home.component';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'signin-oidc', component: HomeComponent, pathMatch: 'full' }
+      { path: 'signin-oidc', component: HomeComponent, pathMatch: 'full' },
+      { path: '', component: HomeComponent },
+      { path: '**', component: HomeComponent }
     ])
   ],
   providers: [],

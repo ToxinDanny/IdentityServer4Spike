@@ -11,7 +11,14 @@
       CallApi
     </button>
   </div>
-  <div>
+
+  <br/>
+  <br/>
+
+  <div *ngIf="this.authService.user">
+    <div *ngFor="let claim of this.authService.user">
+      <li>{{claim}}</li>
+    </div>
   </div>
 </div>
 
