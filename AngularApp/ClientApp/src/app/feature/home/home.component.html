@@ -7,7 +7,7 @@
     <button style="margin-left: 3px" [disabled]="!isLogoutEnabled" class="btn btn-danger" (click)="logout()">
       Logout
     </button>
-    <button style="margin-left: 3px" *ngIf="isCallApiVisible" class="btn btn-dark" (click)="callApi()">
+    <button style="margin-left: 3px" [disabled]="isCallApiEnabled" class="btn btn-dark" (click)="callApi()">
       CallApi
     </button>
   </div>
