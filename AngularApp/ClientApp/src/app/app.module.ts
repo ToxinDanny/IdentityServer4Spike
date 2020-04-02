@@ -18,6 +18,7 @@ import { HomeComponent } from './feature/home/home.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'signin-oidc', component: HomeComponent, pathMatch: 'full' }
     ])
   ],
   providers: [],

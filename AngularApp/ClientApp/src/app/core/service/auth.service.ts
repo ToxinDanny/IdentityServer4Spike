@@ -18,10 +18,10 @@ export class AuthService {
       authority: authUri,
       client_id: 'angular',
       client_secret: 'secret',
-      redirect_uri: `${clientUri}/signin-callback`,
-      scope: 'openid email address profile myApi',
+      redirect_uri: `${clientUri}/signin-oidc`,
+      scope: 'openid profile email address myApi',
       response_type: 'code',
-      post_logout_redirect_uri: `${clientUri}/signout-callback`
+      post_logout_redirect_uri: `${clientUri}`
     };
     this.userManager = new UserManager(stsSetting);
   }

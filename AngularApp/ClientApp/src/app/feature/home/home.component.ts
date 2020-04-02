@@ -13,7 +13,7 @@ export class HomeComponent {
   }
 
   Login() {
-    this.authService.login().then();
+    this.authService.login();
     this.visible = true;
     this.able = !this.able;
   }

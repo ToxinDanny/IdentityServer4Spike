@@ -40,6 +40,15 @@ namespace WebAPI
                     opt.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
                 });
 
+            services.AddCors(opt => {
+                opt.AddPolicy("default", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +62,7 @@ namespace WebAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors("Default");
             app.UseAuthentication();
             app.UseAuthorization();
 
