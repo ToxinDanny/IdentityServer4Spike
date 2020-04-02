@@ -10,7 +10,7 @@ import {CallApiService} from '../../core/service/call-api.service';
 export class HomeComponent {
   isLoginEnabled: boolean;
   isLogoutEnabled: boolean;
-  isCallApiVisible: boolean;
+  isCallApiEnabled: boolean;
   value: any;
 
   constructor(public authService: AuthService,
@@ -18,7 +18,7 @@ export class HomeComponent {
     this.authService.isLoggedIn().then(isLoggedIn => {
       this.isLoginEnabled = !isLoggedIn;
       this.isLogoutEnabled = !this.isLoginEnabled;
-      this.isCallApiVisible = isLoggedIn;
+      this.isCallApiEnabled = isLoggedIn;
     });
   }
 
