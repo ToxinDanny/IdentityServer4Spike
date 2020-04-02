@@ -6,6 +6,9 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './feature/home/home.component';
 import { SigninCallbackComponent } from './feature/signin-callback/signin-callback.component';
+import {SigninCallbackModule} from './feature/signin-callback/signin-callback.module';
+import {SignoutCallbackComponent} from './feature/signout-callback/signout-callback/signout-callback.component';
+import {SignoutCallbackModule} from './feature/signout-callback/signout-callback/signout-callback.module';
 
 
 @NgModule({
@@ -17,8 +20,11 @@ import { SigninCallbackComponent } from './feature/signin-callback/signin-callba
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    SigninCallbackModule,
+    SignoutCallbackModule,
     RouterModule.forRoot([
-      { path: 'signin-oidc', component: HomeComponent, pathMatch: 'full' },
+      { path: 'signin-callback', component: SigninCallbackComponent, pathMatch: 'full' },
+      { path: 'signout-callback', component: SignoutCallbackComponent, pathMatch: 'full' },
       { path: '', component: HomeComponent },
       { path: '**', component: HomeComponent }
     ])

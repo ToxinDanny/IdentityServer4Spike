@@ -18,10 +18,10 @@ export class AuthService {
       authority: authUri,
       client_id: 'angular',
       client_secret: 'secret',
-      redirect_uri: `${clientUri}/signin-oidc`,
+      redirect_uri: `${clientUri}/signin-callback`,
       scope: 'openid profile email address myApi',
       response_type: 'code',
-      post_logout_redirect_uri: `${clientUri}`
+      post_logout_redirect_uri: `${clientUri}/signout-callback`
     };
     this.userManager = new UserManager(stsSetting);
   }
@@ -46,6 +46,16 @@ export class AuthService {
       this.user = user;
       this.loginChangedSubject.next(!!user && !user.expired);
       return user;
-    })
+    });
+  }
+
+  logout() {
+    return this.userManager.signoutRedirect();
+  }
+
+  completeLogout() {
+    return this.userManager.signoutRedirectCallback().then(response => {
+      return response;
+    });
   }
 }

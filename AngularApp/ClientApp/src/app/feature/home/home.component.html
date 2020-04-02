@@ -1,13 +1,13 @@
 <div class="container">
   <h1>Welcome in your Angular Client</h1>
   <div>
-    <button style="margin-left: 3px" class="btn btn-primary" (click)="Login()">
+    <button style="margin-left: 3px" [disabled]="!isLoginEnabled" class="btn btn-primary" (click)="login()">
       Login
     </button>
-    <button style="margin-left: 3px" [disabled]="able" class="btn btn-danger" (click)="Logout()">
+    <button style="margin-left: 3px" [disabled]="!isLogoutEnabled" class="btn btn-danger" (click)="logout()">
       Logout
     </button>
-    <button style="margin-left: 3px" *ngIf="visible" class="btn btn-dark" (click)="CallApi()">
+    <button style="margin-left: 3px" *ngIf="isCallApiVisible" class="btn btn-dark" (click)="callApi()">
       CallApi
     </button>
   </div>
@@ -15,10 +15,8 @@
   <br/>
   <br/>
 
-  <div *ngIf="this.authService.user">
-    <div *ngFor="let claim of this.authService.user">
-      <li>{{claim}}</li>
-    </div>
+  <div *ngIf="this.value">
+    <pre>{{this.value}}</pre>
   </div>
 </div>
 

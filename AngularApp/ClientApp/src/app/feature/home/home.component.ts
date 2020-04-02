@@ -1,31 +1,38 @@
 import { Component } from '@angular/core';
 import {AuthService} from '../../core/service/auth.service';
 import { User } from 'oidc-client';
+import {CallApiService} from '../../core/service/call-api.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
 export class HomeComponent {
-  visible: boolean;
-  able = true;
+  isLoginEnabled: boolean;
+  isLogoutEnabled: boolean;
+  isCallApiVisible: boolean;
+  value: any;
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService,
+              private callApiService: CallApiService) {
+    this.authService.isLoggedIn().then(isLoggedIn => {
+      this.isLoginEnabled = !isLoggedIn;
+      this.isLogoutEnabled = !this.isLoginEnabled;
+      this.isCallApiVisible = isLoggedIn;
+    });
   }
 
-  Login() {
-    this.authService.login();
-    this.visible = true;
-    this.able = !this.able;
+  login() {
+    this.authService.login().then();
   }
 
-  CallApi() {
-    alert('Bravo coglione');
+  callApi() {
+    this.callApiService.callApi().then(value => {
+      this.value = value;
+    });
   }
 
-  Logout() {
-    alert('Ciao coglione');
-    this.visible = false;
-    this.able = !this.able;
+  logout() {
+    this.authService.logout().then();
   }
 }

@@ -40,14 +40,15 @@ namespace WebAPI
                     opt.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
                 });
 
-            services.AddCors(opt => {
-                opt.AddPolicy("default", policy =>
-                {
-                    policy.AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
-                });
-            });
+            services.AddCors(
+                // opt => {
+                // opt.AddPolicy("default", policy =>
+                // {
+                //     policy.AllowAnyOrigin()
+                //     .AllowAnyHeader()
+                //     .AllowAnyMethod();
+                // });}
+                );
 
         }
 
@@ -62,7 +63,11 @@ namespace WebAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseCors("Default");
+            app.UseCors(opt => {
+                opt.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin();
+            });
             app.UseAuthentication();
             app.UseAuthorization();
 

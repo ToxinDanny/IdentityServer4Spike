@@ -44,11 +44,11 @@ namespace Identity4
                     RequirePkce = true,
 
                     // where to redirect to after login
-                    RedirectUris = { "http://localhost:4200/signin-oidc"},
+                    RedirectUris = { "http://localhost:4200/signin-callback"},
                     
                     // where to redirect to after logout
                     
-                    PostLogoutRedirectUris = { "https://localhost:4200/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { "http://localhost:4200/signout-callback" },
 
                     AllowedCorsOrigins = {"http://localhost:4200"},
 
