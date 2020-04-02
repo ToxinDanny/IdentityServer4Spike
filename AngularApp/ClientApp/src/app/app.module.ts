@@ -9,6 +9,7 @@ import { SigninCallbackComponent } from './feature/signin-callback/signin-callba
 import {SigninCallbackModule} from './feature/signin-callback/signin-callback.module';
 import {SignoutCallbackComponent} from './feature/signout-callback/signout-callback/signout-callback.component';
 import {SignoutCallbackModule} from './feature/signout-callback/signout-callback/signout-callback.module';
+import { HttpInterceptorService } from './core/service/http-interceptor.service';
 
 
 @NgModule({
@@ -29,7 +30,9 @@ import {SignoutCallbackModule} from './feature/signout-callback/signout-callback
       { path: '**', component: HomeComponent }
     ])
   ],
-  providers: [],
+  providers: [
+   { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

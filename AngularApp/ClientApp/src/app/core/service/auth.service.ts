@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {User, UserManager} from 'oidc-client';
 import {Subject} from 'rxjs';
 import {authUri, clientUri} from '../../const/uri';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,15 @@ export class AuthService {
   completeLogout() {
     return this.userManager.signoutRedirectCallback().then(response => {
       return response;
+    });
+  }
+
+  getAccessToken() {
+    return this.userManager.getUser().then(user => {
+      if(!!user && !user.expired) {
+        return user.access_token;
+      }
+      return null;
     });
   }
 }

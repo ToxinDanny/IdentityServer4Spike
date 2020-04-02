@@ -54,8 +54,8 @@ namespace Identity4
 
                     AllowedScopes = {"openid","profile","email","address", "myApi"},
 
+                    AccessTokenLifetime = 10
                 }
-
             };
         }
 

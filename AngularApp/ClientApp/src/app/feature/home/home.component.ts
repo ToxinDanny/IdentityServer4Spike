@@ -29,6 +29,8 @@ export class HomeComponent {
   callApi() {
     this.callApiService.callApi().then(value => {
       this.value = value;
+    }, error => {
+      this.value = null;
     });
   }
 
