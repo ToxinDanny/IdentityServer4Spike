@@ -64,7 +64,7 @@ namespace MvcApp.Controllers
            
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            var response = await client.GetAsync("https://localhost:5001/api/WeatherForecast");
+            var response = await client.GetAsync(UriConst.MyApiUri + "/api/WeatherForecast");
 
             if (response.StatusCode != HttpStatusCode.OK)
             {

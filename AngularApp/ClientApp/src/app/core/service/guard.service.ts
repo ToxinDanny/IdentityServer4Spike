@@ -9,6 +9,6 @@ export class GuardService implements CanActivate {
 
   constructor() { }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 }

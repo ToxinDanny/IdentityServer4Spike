@@ -18,7 +18,7 @@
     "AngularApp": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5031;http://localhost:5030",
+      "applicationUrl": "https://localhost:5020;http://localhost:5021",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

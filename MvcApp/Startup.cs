@@ -39,7 +39,7 @@ namespace MvcApp
                 .AddOpenIdConnect("oidc", opt =>
                  {
                     //opt.AuthenticationSchema 
-                     opt.Authority = "https://localhost:5000";
+                     opt.Authority = UriConst.IdentityServerUri;
                      opt.RequireHttpsMetadata = false;
                      
                      opt.ClientId = "mvc";

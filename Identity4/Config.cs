@@ -19,8 +19,8 @@ namespace Identity4
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireConsent = true,
                     RequirePkce = true,
-                    RedirectUris = { "https://localhost:5011/signin-oidc" },
-                    PostLogoutRedirectUris = { "https://localhost:5011/signout-callback-oidc" },
+                    RedirectUris = { UriConst.ClientMVCUri + "/signin-oidc" },
+                    PostLogoutRedirectUris = { UriConst.ClientMVCUri + "/signout-callback-oidc" },
                     AllowedScopes = {"openid","profile","email","address", "myApi"},
                     AccessTokenLifetime = 60
 
@@ -34,9 +34,9 @@ namespace Identity4
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireConsent = true,
                     RequirePkce = true,
-                    RedirectUris = { "http://localhost:4200/signin-callback"},
-                    PostLogoutRedirectUris = { "http://localhost:4200/signout-callback" },
-                    AllowedCorsOrigins = {"http://localhost:4200"},
+                    RedirectUris = { UriConst.ClientAngularUri + "/signin-callback" },
+                    PostLogoutRedirectUris = { UriConst.ClientAngularUri + "/signout-callback" },
+                    AllowedCorsOrigins = {UriConst.ClientAngularUri},
                     AllowedScopes = {"openid","profile","email","address", "myApi"},
                     AccessTokenLifetime = 3600,
                     Claims = new Claim[]

@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{B1FD44AB-61F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityProvider", "IdentityProvider", "{F02E39A9-65C5-41AD-99B0-405324D3B8DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularApp", "AngularApp\AngularApp.csproj", "{F7A8DCB6-0CAF-4E4C-BA4E-D3A666497749}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularApp", "AngularApp\AngularApp.csproj", "{F7A8DCB6-0CAF-4E4C-BA4E-D3A666497749}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -27,22 +27,10 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            // services.AddAuthentication("Bearer")
-            //     .AddJwtBearer("Bearer", opt =>
-            //     {
-            //         opt.Authority = "https://localhost:5000";
-            //         opt.RequireHttpsMetadata = false;
-            //         opt.Audience = "myApi";
-                    
-            //         opt.TokenValidationParameters.ValidateIssuer = true;
-            //         opt.TokenValidationParameters.ValidateAudience = true;
-            //         opt.TokenValidationParameters.ValidateIssuerSigningKey = true;
-            //         opt.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
-            //     });
 
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(opt => {
-                    opt.Authority = "https://localhost:5000";
+                    opt.Authority = UriConst.IdentityServerUri;
                     opt.ApiName = "myApi";
                     opt.RequireHttpsMetadata = false;
                 });
