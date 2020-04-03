@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using IdentityServer4.AccessTokenValidation;
 
 namespace WebAPI
 {
@@ -26,29 +27,32 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", opt =>
-                {
+            // services.AddAuthentication("Bearer")
+            //     .AddJwtBearer("Bearer", opt =>
+            //     {
+            //         opt.Authority = "https://localhost:5000";
+            //         opt.RequireHttpsMetadata = false;
+            //         opt.Audience = "myApi";
                     
+            //         opt.TokenValidationParameters.ValidateIssuer = true;
+            //         opt.TokenValidationParameters.ValidateAudience = true;
+            //         opt.TokenValidationParameters.ValidateIssuerSigningKey = true;
+            //         opt.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
+            //     });
+
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(opt => {
                     opt.Authority = "https://localhost:5000";
+                    opt.ApiName = "myApi";
                     opt.RequireHttpsMetadata = false;
-                    opt.Audience = "myApi";
-                    
-                    opt.TokenValidationParameters.ValidateIssuer = true;
-                    opt.TokenValidationParameters.ValidateAudience = true;
-                    opt.TokenValidationParameters.ValidateIssuerSigningKey = true;
-                    opt.TokenValidationParameters.ClockSkew = TimeSpan.Zero;
                 });
 
-            services.AddCors(
-                // opt => {
-                // opt.AddPolicy("default", policy =>
-                // {
-                //     policy.AllowAnyOrigin()
-                //     .AllowAnyHeader()
-                //     .AllowAnyMethod();
-                // });}
-                );
+            services.AddAuthorization(opt => {
+                opt.AddPolicy("RolePolicy", policy => {
+                    policy.RequireRole(new List<string>{"admin"});
+                });
+            });
+            services.AddCors();
 
         }
 

@@ -27,46 +27,63 @@ namespace Identity4.TEST
                     new Claim(JwtClaimTypes.EmailVerified, "true"),
                     new Claim(JwtClaimTypes.WebSite, "www-google.it"),
                     new Claim("user_address","Via di sto cazzo"),
-
-                }
-
-            },
-            new TestUser()
-            {
-                SubjectId = "1001",
-                Username = "michele.marinelli1@unikey.it",
-                IsActive = true,
-                Password = "test",
-                Claims = new List<Claim>()
-                {
-                    new Claim(JwtClaimTypes.Name, "Michele Marinelli"),
-                    new Claim(JwtClaimTypes.GivenName, "Marinelli"),
-                    new Claim(JwtClaimTypes.FamilyName, "Michele"),
-                    new Claim(JwtClaimTypes.Email, "michele.marinelli@unikey.it"),
-                    new Claim(JwtClaimTypes.EmailVerified, "true"),
-                    new Claim(JwtClaimTypes.WebSite, "www-google.it"),
-                    new Claim("user_address","Via di sto cazzo"),
-
+                    new Claim(JwtClaimTypes.Role, "admin")
                 }
             },
             new TestUser()
             {
-                SubjectId = "1002",
-                Username = "michele.marinelli2@unikey.it",
+                SubjectId = "10",
+                Username = "bob",
                 IsActive = true,
-                Password = "test",
+                Password = "bob",
                 Claims = new List<Claim>()
                 {
-                    new Claim(JwtClaimTypes.Name, "Michele Marinelli"),
-                    new Claim(JwtClaimTypes.GivenName, "Marinelli"),
-                    new Claim(JwtClaimTypes.FamilyName, "Michele"),
-                    new Claim(JwtClaimTypes.Email, "michele.marinelli@unikey.it"),
+                    new Claim(JwtClaimTypes.Name, "bob"),
+                    new Claim(JwtClaimTypes.GivenName, "bob"),
+                    new Claim(JwtClaimTypes.FamilyName, "bob"),
+                    new Claim(JwtClaimTypes.Email, "bob.bob@bob.bob"),
                     new Claim(JwtClaimTypes.EmailVerified, "true"),
                     new Claim(JwtClaimTypes.WebSite, "www-google.it"),
-                    new Claim("user_address","Via di sto cazzo"),
-
+                    new Claim("user_address","Via di bob bob"),
+                    new Claim(JwtClaimTypes.Role, "user")
                 }
-            }
+            },
+            // new TestUser()
+            // {
+            //     SubjectId = "1001",
+            //     Username = "michele.marinelli1@unikey.it",
+            //     IsActive = true,
+            //     Password = "test",
+            //     Claims = new List<Claim>()
+            //     {
+            //         new Claim(JwtClaimTypes.Name, "Michele Marinelli"),
+            //         new Claim(JwtClaimTypes.GivenName, "Marinelli"),
+            //         new Claim(JwtClaimTypes.FamilyName, "Michele"),
+            //         new Claim(JwtClaimTypes.Email, "michele.marinelli@unikey.it"),
+            //         new Claim(JwtClaimTypes.EmailVerified, "true"),
+            //         new Claim(JwtClaimTypes.WebSite, "www-google.it"),
+            //         new Claim("user_address","Via di sto cazzo"),
+
+            //     }
+            // },
+            // new TestUser()
+            // {
+            //     SubjectId = "1002",
+            //     Username = "michele.marinelli2@unikey.it",
+            //     IsActive = true,
+            //     Password = "test",
+            //     Claims = new List<Claim>()
+            //     {
+            //         new Claim(JwtClaimTypes.Name, "Michele Marinelli"),
+            //         new Claim(JwtClaimTypes.GivenName, "Marinelli"),
+            //         new Claim(JwtClaimTypes.FamilyName, "Michele"),
+            //         new Claim(JwtClaimTypes.Email, "michele.marinelli@unikey.it"),
+            //         new Claim(JwtClaimTypes.EmailVerified, "true"),
+            //         new Claim(JwtClaimTypes.WebSite, "www-google.it"),
+            //         new Claim("user_address","Via di sto cazzo"),
+
+            //     }
+            // }
         };
 
     }

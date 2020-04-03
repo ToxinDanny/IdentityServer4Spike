@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using IdentityServer4.Models;
+using IdentityModel;
 
 namespace Identity4
 {
@@ -14,21 +16,12 @@ namespace Identity4
                 {
                     ClientId = "mvc",
                     ClientSecrets = { new Secret("secret".Sha256()) },
-
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireConsent = true,
                     RequirePkce = true,
-
-                    // where to redirect to after login
                     RedirectUris = { "https://localhost:5011/signin-oidc" },
-                    
-                    // where to redirect to after logout
-                    
-
                     PostLogoutRedirectUris = { "https://localhost:5011/signout-callback-oidc" },
-
                     AllowedScopes = {"openid","profile","email","address", "myApi"},
-
                     AccessTokenLifetime = 60
 
                     
@@ -38,23 +31,19 @@ namespace Identity4
                 {
                     ClientId = "angular",
                     ClientSecrets = { new Secret("secret".Sha256()) },
-
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireConsent = true,
                     RequirePkce = true,
-
-                    // where to redirect to after login
                     RedirectUris = { "http://localhost:4200/signin-callback"},
-                    
-                    // where to redirect to after logout
-                    
                     PostLogoutRedirectUris = { "http://localhost:4200/signout-callback" },
-
                     AllowedCorsOrigins = {"http://localhost:4200"},
-
                     AllowedScopes = {"openid","profile","email","address", "myApi"},
-
-                    AccessTokenLifetime = 10
+                    AccessTokenLifetime = 3600,
+                    Claims = new Claim[]
+                    {
+                        new Claim(JwtClaimTypes.Role, "admin"),
+                        new Claim(JwtClaimTypes.Role, "user")
+                    }
                 }
             };
         }
@@ -72,7 +61,7 @@ namespace Identity4
                     Name = "address",
                     DisplayName = "Address",
                     UserClaims = {"user_address"}
-                },
+                }
             };
         }
 
@@ -80,7 +69,12 @@ namespace Identity4
         {
             return new ApiResource[]
             {
-                new ApiResource("myApi")
+                new ApiResource
+                {
+                    Name = "myApi",
+                    Scopes = {new Scope("myApi")},
+                    UserClaims = {JwtClaimTypes.Role}
+                }
             };
         }
     }
