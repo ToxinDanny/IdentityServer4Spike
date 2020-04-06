@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using IdentityModel;
+using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServerAspNetIdentity.Data;
 using IdentityServerAspNetIdentity.Models;
 using Microsoft.AspNetCore.Identity;
@@ -21,8 +22,8 @@ namespace IdentityServerAspNetIdentity
         {
             var services = new ServiceCollection();
             services.AddLogging();
-            services.AddDbContext<ApplicationDbContext>(options =>
-               options.UseSqlite(connectionString));
+
+            services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(connectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -69,12 +70,47 @@ namespace IdentityServerAspNetIdentity
                         Log.Debug("alice already exists");
                     }
 
+                    var pippo = userMgr.FindByNameAsync("pippo").Result;
+                    if (pippo == null)
+                    {
+                        pippo = new ApplicationUser
+                        {
+                            UserName = "pippo",
+                        };
+                        var result = userMgr.CreateAsync(pippo, "Pippo123!").Result;
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        result = userMgr.AddClaimsAsync(pippo, new Claim[]{
+                        new Claim(JwtClaimTypes.Id, "ciaopippo"),
+                        new Claim(JwtClaimTypes.Name, "Pippo Forte"),
+                        new Claim(JwtClaimTypes.GivenName, "Pippo"),
+                        new Claim(JwtClaimTypes.FamilyName, "Forte"),
+                        new Claim(JwtClaimTypes.Email, "PippoForte@email.com"),
+                        new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
+                        new Claim(JwtClaimTypes.WebSite, "http://pippoiochepippitu.com"),
+                        new Claim(JwtClaimTypes.Role, "admin"),
+                        new Claim(JwtClaimTypes.Address, @"{ 'street_address': 'Lunga Striscia', 'locality': 'Home', 'postal_code': 666, 'country': 'Colombia' }", IdentityServer4.IdentityServerConstants.ClaimValueTypes.Json)
+                    }).Result;
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+                        Log.Debug("pippo pippa");
+                    }
+                    else
+                    {
+                        Log.Debug("pippo already pippa");
+                    }
+
                     var bob = userMgr.FindByNameAsync("bob").Result;
                     if (bob == null)
                     {
                         bob = new ApplicationUser
                         {
-                            UserName = "bob"
+                            UserName = "bob",
                         };
                         var result = userMgr.CreateAsync(bob, "Pass123$").Result;
                         if (!result.Succeeded)

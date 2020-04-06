@@ -35,9 +35,11 @@ namespace WebAPI
                     opt.RequireHttpsMetadata = false;
                 });
 
-            services.AddAuthorization(opt => {
-                opt.AddPolicy("RolePolicy", policy => {
-                    policy.RequireRole(new List<string>{"admin"});
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("RolePolicy", policy =>
+                {
+                    policy.RequireRole(new List<string> { "admin" });
                 });
             });
             services.AddCors();

@@ -26,9 +26,7 @@ namespace IdentityServerAspNetIdentity
                     RedirectUris = { UriConst.ClientMVCUri + "/signin-oidc" },
                     PostLogoutRedirectUris = { UriConst.ClientMVCUri + "/signout-callback-oidc" },
                     AllowedScopes = {"openid","profile","email","address", "myApi"},
-                    AccessTokenLifetime = 60
-
-                    
+                    AccessTokenLifetime = 60,
                 },
 
                 new Client
