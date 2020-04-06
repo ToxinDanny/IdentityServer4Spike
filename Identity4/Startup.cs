@@ -34,7 +34,6 @@ namespace Identity4
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources());
-
             services.AddCors(opt => {
                 opt.AddPolicy("default", policy =>
                 {
