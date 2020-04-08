@@ -40,6 +40,7 @@ namespace MvcApp
                  {
                     //opt.AuthenticationSchema 
                      opt.Authority = UriConst.IdentityServerUri;
+                     
                      opt.RequireHttpsMetadata = false;
                      
                      opt.ClientId = "mvc";

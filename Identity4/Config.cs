@@ -23,8 +23,6 @@ namespace Identity4
                     PostLogoutRedirectUris = { UriConst.ClientMVCUri + "/signout-callback-oidc" },
                     AllowedScopes = {"openid","profile","email","address", "myApi"},
                     AccessTokenLifetime = 60
-
-                    
                 },
 
                 new Client

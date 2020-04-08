@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {User, UserManager} from 'oidc-client';
 import {Subject} from 'rxjs';
 import {authUri, clientUri} from '../../const/uri';
-import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +9,7 @@ import { stringify } from 'querystring';
 export class AuthService {
   user: User;
   userManager: UserManager;
+
   loginChangedSubject = new Subject<boolean>();
 
   loginChanged = this.loginChangedSubject.asObservable();
@@ -62,7 +62,7 @@ export class AuthService {
 
   getAccessToken() {
     return this.userManager.getUser().then(user => {
-      if(!!user && !user.expired) {
+      if (!!user && !user.expired) {
         return user.access_token;
       }
       return null;

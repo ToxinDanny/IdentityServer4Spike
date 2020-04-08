@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using IdentityServer4.AccessTokenValidation;
+using Microsoft.IdentityModel.Tokens;
 
 namespace WebAPI
 {
@@ -28,12 +29,28 @@ namespace WebAPI
         {
             services.AddControllers();
 
-            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                .AddIdentityServerAuthentication(opt => {
-                    opt.Authority = UriConst.IdentityServerUri;
-                    opt.ApiName = "myApi";
-                    opt.RequireHttpsMetadata = false;
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                {
+                    options.Authority = UriConst.IdentityServerUri;
+                    options.RequireHttpsMetadata = false;
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ClockSkew = TimeSpan.Zero
+                    };
+
+                     options.Audience = "myApi";
                 });
+
+            //services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+            //    .AddIdentityServerAuthentication(opt => {
+            //        opt.Authority = UriConst.IdentityServerUri;
+            //        opt.ApiName = "myApi";
+            //        opt.RequireHttpsMetadata = false;
+            //    });
 
             services.AddAuthorization(opt =>
             {
