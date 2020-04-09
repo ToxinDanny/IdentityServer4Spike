@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using IdentityServer4.Models;
+using IdentityModel;
 
 namespace Identity4
 {
@@ -9,36 +11,38 @@ namespace Identity4
         {
             return new[]
             {
-                //new Client
-                //{
-                //    ClientId = "mvc",
-                //    ClientName = "MVC Demo",
-                //    AllowedGrantTypes = GrantTypes.Implicit,
-                //    RedirectUris = {"https://localhost:5011/signin-oidc" },
 
-                //    //list of allowed information to share
-                //    AllowedScopes = {"openid","profile","email","address"}  
-                //},
                 new Client
                 {
                     ClientId = "mvc",
                     ClientSecrets = { new Secret("secret".Sha256()) },
-
                     AllowedGrantTypes = GrantTypes.Code,
                     RequireConsent = true,
                     RequirePkce = true,
+                    RedirectUris = { UriConst.ClientMVCUri + "/signin-oidc" },
+                    PostLogoutRedirectUris = { UriConst.ClientMVCUri + "/signout-callback-oidc" },
+                    AllowedScopes = {"openid","profile","email","address", "myApi"},
+                    AccessTokenLifetime = 60
+                },
 
-                    // where to redirect to after login
-                    RedirectUris = { "https://localhost:5011/signin-oidc" },
-                    
-                    // where to redirect to after logout
-                    
-
-                    PostLogoutRedirectUris = { "https://localhost:5011/signout-callback-oidc" },
-
-                    AllowedScopes = {"openid","profile","email","address","myApi"}
+                new Client
+                {
+                    ClientId = "angular",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequireConsent = true,
+                    RequirePkce = true,
+                    RedirectUris = { UriConst.ClientAngularUri + "/signin-callback" },
+                    PostLogoutRedirectUris = { UriConst.ClientAngularUri + "/signout-callback" },
+                    AllowedCorsOrigins = {UriConst.ClientAngularUri},
+                    AllowedScopes = {"openid","profile","email","address", "myApi"},
+                    AccessTokenLifetime = 3600,
+                    Claims = new Claim[]
+                    {
+                        new Claim(JwtClaimTypes.Role, "admin"),
+                        new Claim(JwtClaimTypes.Role, "user")
+                    }
                 }
-
             };
         }
 
@@ -53,8 +57,9 @@ namespace Identity4
                 new IdentityResource()
                 {
                     Name = "address",
+                    DisplayName = "Address",
                     UserClaims = {"user_address"}
-                },
+                }
             };
         }
 
@@ -62,7 +67,12 @@ namespace Identity4
         {
             return new ApiResource[]
             {
-                new ApiResource("myApi")
+                new ApiResource
+                {
+                    Name = "myApi",
+                    Scopes = {new Scope("myApi")},
+                    UserClaims = {JwtClaimTypes.Role}
+                }
             };
         }
     }

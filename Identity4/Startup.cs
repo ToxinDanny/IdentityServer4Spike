@@ -34,6 +34,14 @@ namespace Identity4
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryApiResources(Config.GetApiResources());
+            services.AddCors(opt => {
+                opt.AddPolicy("default", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
 
         }
 
@@ -54,6 +62,7 @@ namespace Identity4
             app.UseStaticFiles();
             app.UseIdentityServer();
             app.UseRouting();
+            app.UseCors("default");
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MvcApp.Models;
 using Newtonsoft.Json.Linq;
+using IdentityModel.Client;
 
 namespace MvcApp.Controllers
 {
@@ -57,16 +59,51 @@ namespace MvcApp.Controllers
         [HttpGet]
         public async Task<IActionResult> CallApi()
         {
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
             var client = new HttpClient();
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+           
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            var response = await client.GetAsync("https://localhost:5001/api/WeatherForecast");
+            var response = await client.GetAsync(UriConst.MyApiUri + "/api/WeatherForecast");
+
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                return Unauthorized();
+            }
+
+            var result = await response.Content.ReadAsStringAsync();
             var model = new ApiResponseModel
             {
-                Response = JArray.Parse(response.ReasonPhrase)
+                Response = JArray.Parse(result)
             };
             return View(model);
         }
+
+        //private async Task RefreshTokenAsync(HttpClient Client)
+        //{            
+        //    var discoveryDocument = await Client.GetDiscoveryDocumentAsync("https://localhost:5000/");
+
+        //    var accessToken = await HttpContext.GetTokenAsync("access_token");
+        //    var refreshToken = await HttpContext.GetTokenAsync("refresh_token");
+        //    var identityToken = await HttpContext.GetTokenAsync("id_token");
+
+        //    var tokenResponse = await Client.RequestRefreshTokenAsync(
+        //        new RefreshTokenRequest
+        //        {
+        //            Address = discoveryDocument.TokenEndpoint,
+        //            RefreshToken = refreshToken,
+        //            ClientId = "mvc",
+        //            ClientSecret = "secret",
+        //        });
+
+        //    var authInfo = await HttpContext.AuthenticateAsync("Cookies");
+
+        //    authInfo.Properties.UpdateTokenValue("access_token", tokenResponse.AccessToken);
+        //    authInfo.Properties.UpdateTokenValue("id_token", tokenResponse.IdentityToken);
+        //    authInfo.Properties.UpdateTokenValue("refresh_token", tokenResponse.RefreshToken);
+
+        //    await HttpContext.SignInAsync("Cookies", authInfo.Principal, authInfo.Properties);
+
+        //}
     }
 }

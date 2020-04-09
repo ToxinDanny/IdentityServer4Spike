@@ -1,0 +1,22 @@
+<div class="container">
+  <h1>Welcome in your Angular Client</h1>
+  <div>
+    <button style="margin-left: 3px" [disabled]="!isLoginEnabled" class="btn btn-primary" (click)="login()">
+      Login
+    </button>
+    <button style="margin-left: 3px" [disabled]="!isLogoutEnabled" class="btn btn-danger" (click)="logout()">
+      Logout
+    </button>
+    <button style="margin-left: 3px" [disabled]="!isCallApiEnabled" class="btn btn-dark" (click)="callApi()">
+      CallApi
+    </button>
+  </div>
+
+  <br/>
+  <br/>
+
+  <div *ngIf="this.value">
+    <pre>{{this.value | json}}</pre>
+  </div>
+</div>
+
