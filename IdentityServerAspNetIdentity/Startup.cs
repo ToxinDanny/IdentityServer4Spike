@@ -15,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
 using System.Reflection;
+using IdentityServer4.Quickstart.UI;
+using IdentityServer4.Test;
 
 namespace IdentityServerAspNetIdentity
 {
@@ -35,7 +37,7 @@ namespace IdentityServerAspNetIdentity
 
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("MyConnectionString")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -46,6 +48,7 @@ namespace IdentityServerAspNetIdentity
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
                 })
+                .AddTestUsers(TestUsers.Users)
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddConfigurationStore(opt => opt.ConfigureDbContext = builder =>
                                               builder.UseSqlServer(Configuration.GetConnectionString("MyConnectionString"), sql =>
@@ -70,7 +73,7 @@ namespace IdentityServerAspNetIdentity
 
         public void Configure(IApplicationBuilder app)
         {
-            InitializeDatabase(app);
+            //InitializeDatabase(app);
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

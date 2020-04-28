@@ -6,6 +6,7 @@ using IdentityModel;
 using IdentityServer4.Models;
 using System.Collections.Generic;
 using System.Security.Claims;
+using IdentityServer4.Test;
 
 namespace IdentityServerAspNetIdentity
 {
@@ -16,18 +17,18 @@ namespace IdentityServerAspNetIdentity
             return new[]
             {
 
-                new Client
-                {
-                    ClientId = "mvc",
-                    ClientSecrets = { new Secret("secret".Sha256()) },
-                    AllowedGrantTypes = GrantTypes.Code,
-                    RequireConsent = true,
-                    RequirePkce = true,
-                    RedirectUris = { UriConst.ClientMVCUri + "/signin-oidc" },
-                    PostLogoutRedirectUris = { UriConst.ClientMVCUri + "/signout-callback-oidc" },
-                    AllowedScopes = {"openid","profile","email","address", "myApi"},
-                    AccessTokenLifetime = 60,
-                },
+                //new Client
+                //{
+                //    ClientId = "mvc",
+                //    ClientSecrets = { new Secret("secret".Sha256()) },
+                //    AllowedGrantTypes = GrantTypes.Code,
+                //    RequireConsent = true,
+                //    RequirePkce = true,
+                //    RedirectUris = { UriConst.ClientMVCUri + "/signin-oidc" },
+                //    PostLogoutRedirectUris = { UriConst.ClientMVCUri + "/signout-callback-oidc" },
+                //    AllowedScopes = {"openid","profile","email","address", "myApi"},
+                //    AccessTokenLifetime = 60,
+                //},
 
                 new Client
                 {
@@ -100,6 +101,22 @@ namespace IdentityServerAspNetIdentity
                     Name = "myApi",
                     Scopes = {new Scope("myApi")},
                     UserClaims = {JwtClaimTypes.Role}
+                }
+            };
+        }
+
+        public static List<TestUser> GetTestUsers()
+        {
+            return new List<TestUser>
+            {
+                new TestUser
+                {
+                    Username = "test",
+                    Password = "test",
+                    Claims = new List<Claim>
+                    {
+                        new Claim(JwtClaimTypes.Role, "admin")
+                    }
                 }
             };
         }
